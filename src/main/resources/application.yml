@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cache_demo
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    properties:
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: true
+      hibernate.cache.region.factory_class: org.hibernate.cache.redis.hibernate60.SingletonRedisRegionFactory
+      hibernate.redis.expiryInSeconds: 120
+      hibernate.redis.timeToLiveInSeconds: 120
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  application:
+    name: redis.hibernate
+
+server:
+  port: 8090
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.cache: trace
+    org.hibernate.cache.spi: trace
